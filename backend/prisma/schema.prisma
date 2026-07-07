@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MealCategory {
+  BREAKFAST
+  LUNCH
+  DINNER
+  MORNING_SNACK
+  EVENING_SNACK
+  LATE_NIGHT_SNACK
+}
+
+enum PortionUnit {
+  G
+  ML
+  PIECES
+  SERVINGS
+  BOWLS
+  CUPS
+}
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  foodLogs     FoodLog[]
+
+  @@map("users")
+}
+
+model FoodLog {
+  id               String           @id @default(uuid()) @db.Uuid
+  userId           String           @map("user_id") @db.Uuid
+  foodName         String           @map("food_name")
+  mealCategory     MealCategory     @map("meal_category")
+  consumedDateTime DateTime         @map("consumed_date_time")
+  portionQuantity  Decimal          @map("portion_quantity") @db.Decimal(10, 2)
+  portionUnit      PortionUnit      @map("portion_unit")
+  calories         Int
+  notes            String?
+  foodImageUrl     String?          @map("food_image_url")
+  isDeleted        Boolean          @default(false) @map("is_deleted")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags             FoodLogTag[]
+
+  @@index([userId, consumedDateTime])
+  @@index([mealCategory])
+  @@index([calories])
+  @@index([foodName])
+  @@map("food_logs")
+}
+
+model Tag {
+  id        String       @id @default(uuid()) @db.Uuid
+  name      String       @unique
+  createdAt DateTime     @default(now()) @map("created_at")
+  foodLogs  FoodLogTag[]
+
+  @@index([name])
+  @@map("tags")
+}
+
+model FoodLogTag {
+  foodLogId String  @map("food_log_id") @db.Uuid
+  tagId     String  @map("tag_id") @db.Uuid
+  foodLog   FoodLog @relation(fields: [foodLogId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([foodLogId, tagId])
+  @@map("food_log_tags")
+}
