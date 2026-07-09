@@ -29,6 +29,11 @@ npm run prisma:seed
 
 venv and npm install, npm run dev
 
+7. Run postgresql - 
+open cmd as administrator and pg_ctl register -N "postgresql-x64-18" -D "C:\Program Files\PostgreSQL\18\data"
+net start postgresql-x64-18
+Get-Service *postgres* -> for verification
+
 a. .env example - backend
 
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/health_ledger?schema=public"

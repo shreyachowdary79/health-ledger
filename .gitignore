@@ -58,3 +58,15 @@ frontend/.vite/
 *.pem
 .cache/
 tmp/
+
+# ─── Python / Virtual Environments ───────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+

@@ -111,7 +111,26 @@ git clone https://github.com/your-username/health-ledger.git
 cd health-ledger
 ```
 
-### 2. Create a PostgreSQL Database
+### 2. Start PostgreSQL
+
+Ensure your PostgreSQL database server is running:
+
+- **Windows:**
+  Start directly using the data directory:
+  ```powershell
+  pg_ctl -D "C:\Program Files\PostgreSQL\18\data" start
+  ```
+  *(Or register it as a Windows Service in an Admin terminal with `pg_ctl register -N "postgresql-x64-18" -D "C:\Program Files\PostgreSQL\18\data"` and start it with `net start postgresql-x64-18`)*
+- **macOS:**
+  ```bash
+  brew services start postgresql
+  ```
+- **Linux:**
+  ```bash
+  sudo systemctl start postgresql
+  ```
+
+### 3. Create a PostgreSQL Database
 
 Open `psql` or pgAdmin and run:
 
@@ -119,7 +138,7 @@ Open `psql` or pgAdmin and run:
 CREATE DATABASE health_ledger;
 ```
 
-### 3. Configure Environment Variables
+### 4. Configure Environment Variables
 
 ```bash
 # Windows (PowerShell)
@@ -129,7 +148,7 @@ Copy-Item frontend\.env.example frontend\.env
 
 Open `backend/.env` and update your database credentials (see [Environment Variables](#environment-variables)).
 
-### 4. Set Up and Start the Backend
+### 5. Set Up and Start the Backend
 
 ```bash
 cd backend
@@ -140,7 +159,7 @@ npm run prisma:seed       # Load sample data (optional)
 npm run dev               # Start backend on http://localhost:4000
 ```
 
-### 5. Start the Frontend
+### 6. Start the Frontend
 
 Open a **new terminal**:
 
@@ -150,7 +169,7 @@ npm install
 npm run dev               # Start frontend on http://localhost:5173
 ```
 
-### 6. Open in Browser
+### 7. Open in Browser
 
 | Service | URL |
 |---|---|

@@ -107,6 +107,9 @@ This document lists all runtime and development dependencies across the monorepo
 
 ## Installing All Dependencies
 
+> [!NOTE]
+> This is a full-stack Node.js & TypeScript project. It does **not** use or require Python virtual environments (`venv`). You only need Node.js and `npm` installed.
+
 ```bash
 # Backend
 cd backend && npm install
