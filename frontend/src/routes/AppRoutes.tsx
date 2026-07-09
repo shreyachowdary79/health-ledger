@@ -12,7 +12,10 @@ import { ProfilePage } from "../pages/ProfilePage";
 import { RegisterPage } from "../pages/RegisterPage";
 
 function Protected({ children }: { children: ReactNode }) {
-  const { token } = useAuth();
+  const { token, isReady } = useAuth();
+  if (!isReady) {
+    return <div className="grid min-h-screen place-items-center text-sm text-slate-500">Checking your session...</div>;
+  }
   return token ? children : <Navigate to="/login" replace />;
 }
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Button } from "../components/Button";
 import { useAuth } from "../components/AuthProvider";
 
@@ -20,8 +21,9 @@ export function LoginPage() {
           try {
             await login(values.email, values.password);
             navigate("/");
-          } catch {
-            toast.error("Invalid email or password");
+          } catch (error) {
+            const message = axios.isAxiosError(error) ? error.response?.data?.message ?? "Invalid email or password" : "Invalid email or password";
+            toast.error(message);
           } finally {
             setSubmitting(false);
           }

@@ -6,10 +6,15 @@ export const foodLogIdValidator = [param("id").isUUID().withMessage("Food log id
 export const foodLogValidator = [
   body("foodName").trim().notEmpty().withMessage("Food name is required"),
   body("mealCategory").isIn(Object.values(MealCategory)).withMessage("Meal category is invalid"),
-  body("consumedDateTime").isISO8601().withMessage("Consumed date and time is required"),
+  body("consumedDateTime").custom((value) => {
+    if (!value) throw new Error("Consumed date and time is required");
+    const date = new Date(value);
+    if (isNaN(date.getTime())) throw new Error("Consumed date and time must be a valid date");
+    return true;
+  }),
   body("portionQuantity").toFloat().isFloat({ gt: 0 }).withMessage("Portion quantity must be greater than 0"),
   body("portionUnit").isIn(Object.values(PortionUnit)).withMessage("Portion unit is invalid"),
-  body("calories").toInt().isInt({ gt: 0 }).withMessage("Calories must be greater than 0"),
+  body("calories").toInt().isInt({ min: 1 }).withMessage("Calories must be at least 1"),
   body("notes").optional({ nullable: true }).trim().isLength({ max: 1000 }),
   body("tags").optional().customSanitizer((value) => {
     if (Array.isArray(value)) return value;

@@ -9,7 +9,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "test": "vitest --environment jsdom"
+    "test": "vitest run --environment jsdom"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

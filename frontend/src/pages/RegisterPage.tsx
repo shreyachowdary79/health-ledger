@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Button } from "../components/Button";
 import { useAuth } from "../components/AuthProvider";
 
@@ -20,8 +21,9 @@ export function RegisterPage() {
           try {
             await registerUser(values.name, values.email, values.password);
             navigate("/");
-          } catch {
-            toast.error("Registration failed");
+          } catch (error) {
+            const message = axios.isAxiosError(error) ? error.response?.data?.message ?? "Registration failed" : "Registration failed";
+            toast.error(message);
           } finally {
             setSubmitting(false);
           }

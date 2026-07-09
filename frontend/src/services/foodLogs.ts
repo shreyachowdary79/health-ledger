@@ -12,6 +12,11 @@ function toFormData(payload: FoodLogPayload) {
       formData.append("tags", JSON.stringify(value));
       return;
     }
+    if (key === "consumedDateTime" && value) {
+      // Ensure we always send a full ISO string (datetime-local gives "YYYY-MM-DDTHH:mm")
+      formData.append("consumedDateTime", new Date(value as string).toISOString());
+      return;
+    }
     if (value !== undefined && value !== null) {
       formData.append(key, String(value));
     }

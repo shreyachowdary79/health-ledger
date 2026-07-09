@@ -1,0 +1,44 @@
+1 
+node --version    # Need v18+
+npm --version     # Comes with Node
+psql --version    # Need PostgreSQL
+
+2
+Node.js: https://nodejs.org (download LTS)
+PostgreSQL: https://www.postgresql.org/download/window
+
+3. download docker desktop 
+wsl --install Ubuntu
+wsl -l -v -> verify
+
+4. postgresql set env variables 
+
+psql -U postgres
+CREATE DATABASE health_ledger;
+\q
+
+
+5. go to backend and venv and npm install
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:seed
+
+, npm run dev
+
+6. FRONTEND
+
+venv and npm install, npm run dev
+
+a. .env example - backend
+
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/health_ledger?schema=public"
+JWT_SECRET="replace-with-a-long-random-secret"
+JWT_EXPIRES_IN="1d"
+PORT=4000
+FRONTEND_URL="http://localhost:5173"
+UPLOAD_DIR="uploads/food-images"
+
+b. .env example - FRONTEND
+
+VITE_API_URL=http://localhost:4000/api
+

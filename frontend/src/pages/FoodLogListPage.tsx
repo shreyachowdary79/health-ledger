@@ -9,7 +9,7 @@ import { humanize, mealCategories } from "../utils/labels";
 
 export function FoodLogListPage() {
   const [filters, setFilters] = useState({ q: "", mealCategory: "", sortBy: "date", sortOrder: "desc" });
-  const { data, isLoading, error, refetch } = useAsync(() => foodLogService.search(filters), [JSON.stringify(filters)]);
+  const { data, isLoading, error } = useAsync(() => foodLogService.search(filters), [JSON.stringify(filters)]);
 
   return (
     <div className="grid gap-6">
@@ -46,7 +46,7 @@ export function FoodLogListPage() {
           <Link key={entry.id} to={`/foodlogs/${entry.id}`} className="grid gap-2 rounded-md bg-white p-4 shadow-soft transition hover:translate-y-[-1px] dark:bg-slate-900 md:grid-cols-[1fr_auto]">
             <div>
               <h2 className="font-semibold">{entry.foodName}</h2>
-              <p className="text-sm text-slate-500">{humanize(entry.mealCategory)} · {new Date(entry.consumedDateTime).toLocaleString()}</p>
+              <p className="text-sm text-slate-500">{humanize(entry.mealCategory)} - {new Date(entry.consumedDateTime).toLocaleString()}</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {entry.tags.map((tag) => (
                   <span key={tag} className="rounded-md bg-slate-100 px-2 py-1 text-xs dark:bg-slate-800">
