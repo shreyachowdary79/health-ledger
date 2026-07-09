@@ -42,15 +42,15 @@ export function FoodLogForm({ initial, onSubmit, isSubmitting }: Props) {
   }
 
   return (
-    <form className="grid gap-5 rounded-md bg-white p-5 shadow-soft dark:bg-slate-900" onSubmit={handleSubmit(onSubmit)}>
+    <form className="glass-panel grid gap-5 rounded-[32px] p-6 text-slate-100" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="grid gap-1 text-sm font-medium">
+        <label className="grid gap-2 text-sm font-medium text-slate-200">
           Food name
-          <input className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("foodName", { required: true })} />
+          <input className="glass-input rounded-2xl px-4 py-3" {...register("foodName", { required: true })} />
         </label>
-        <label className="grid gap-1 text-sm font-medium">
+        <label className="grid gap-2 text-sm font-medium text-slate-200">
           Meal category
-          <select className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("mealCategory")}>
+          <select className="glass-input rounded-2xl px-4 py-3" {...register("mealCategory")}>
             {mealCategories.map((category) => (
               <option key={category} value={category}>
                 {humanize(category)}
@@ -58,21 +58,21 @@ export function FoodLogForm({ initial, onSubmit, isSubmitting }: Props) {
             ))}
           </select>
         </label>
-        <label className="grid gap-1 text-sm font-medium">
+        <label className="grid gap-2 text-sm font-medium text-slate-200">
           Consumed date and time
-          <input type="datetime-local" className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("consumedDateTime", { required: true })} />
+          <input type="datetime-local" className="glass-input rounded-2xl px-4 py-3" {...register("consumedDateTime", { required: true })} />
         </label>
-        <label className="grid gap-1 text-sm font-medium">
+        <label className="grid gap-2 text-sm font-medium text-slate-200">
           Calories
-          <input type="number" min={1} className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("calories", { valueAsNumber: true, min: 1 })} />
+          <input type="number" min={1} className="glass-input rounded-2xl px-4 py-3" {...register("calories", { valueAsNumber: true, min: 1 })} />
         </label>
-        <label className="grid gap-1 text-sm font-medium">
+        <label className="grid gap-2 text-sm font-medium text-slate-200">
           Portion quantity
-          <input type="number" min={0.01} step="0.01" className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("portionQuantity", { valueAsNumber: true, min: 0.01 })} />
+          <input type="number" min={0.01} step="0.01" className="glass-input rounded-2xl px-4 py-3" {...register("portionQuantity", { valueAsNumber: true, min: 0.01 })} />
         </label>
-        <label className="grid gap-1 text-sm font-medium">
+        <label className="grid gap-2 text-sm font-medium text-slate-200">
           Portion unit
-          <select className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("portionUnit")}>
+          <select className="glass-input rounded-2xl px-4 py-3" {...register("portionUnit")}>
             {portionUnits.map((unit) => (
               <option key={unit} value={unit}>
                 {humanize(unit)}
@@ -81,22 +81,22 @@ export function FoodLogForm({ initial, onSubmit, isSubmitting }: Props) {
           </select>
         </label>
       </div>
-      <label className="grid gap-1 text-sm font-medium">
+      <label className="grid gap-2 text-sm font-medium text-slate-200">
         Notes
-        <textarea rows={4} className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" {...register("notes")} />
+        <textarea rows={4} className="glass-input rounded-2xl px-4 py-3" {...register("notes")} />
       </label>
-      <label className="grid gap-1 text-sm font-medium">
+      <label className="grid gap-2 text-sm font-medium text-slate-200">
         Food image
-        <input type="file" accept="image/png,image/jpeg" className="rounded-md border border-slate-300 bg-transparent px-3 py-2 text-sm dark:border-slate-700" {...register("foodImage")} />
+        <input type="file" accept="image/png,image/jpeg" className="glass-input rounded-2xl px-4 py-3 text-sm" {...register("foodImage")} />
       </label>
       <div>
-        <div className="text-sm font-medium">Tags</div>
+        <div className="text-sm font-medium text-slate-200">Tags</div>
         <div className="mt-2 flex flex-wrap gap-2">
           {defaultTags.map((tag) => (
             <button
               key={tag}
               type="button"
-              className={`rounded-md border px-3 py-1 text-sm ${tagSet.has(tag) ? "border-mint bg-teal-50 text-mint dark:bg-teal-950" : "border-slate-300 dark:border-slate-700"}`}
+              className={`rounded-full border px-3 py-1 text-sm transition ${tagSet.has(tag) ? "border-emerald-400/40 bg-emerald-400/15 text-emerald-200 shadow-glow" : "border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"}`}
               onClick={() => toggleTag(tag)}
             >
               {tag}
@@ -104,7 +104,7 @@ export function FoodLogForm({ initial, onSubmit, isSubmitting }: Props) {
           ))}
         </div>
         <input
-          className="mt-3 w-full rounded-md border border-slate-300 bg-transparent px-3 py-2 text-sm dark:border-slate-700"
+          className="glass-input mt-3 w-full rounded-2xl px-4 py-3 text-sm"
           placeholder="Custom tags, comma separated"
           onBlur={(event) => {
             const custom = event.target.value.split(",").map((tag) => tag.trim()).filter(Boolean);
@@ -114,7 +114,7 @@ export function FoodLogForm({ initial, onSubmit, isSubmitting }: Props) {
         />
       </div>
       <div className="flex justify-end">
-        <Button disabled={isSubmitting}>{isSubmitting ? "Saving..." : "Save food log"}</Button>
+        <Button className="rounded-full bg-premium text-slate-950 shadow-glow" disabled={isSubmitting}>{isSubmitting ? "Saving..." : "Save food log"}</Button>
       </div>
     </form>
   );

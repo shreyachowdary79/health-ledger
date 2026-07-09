@@ -31,7 +31,7 @@ export function FoodLogFormPage() {
 
   return (
     <div className="grid gap-6">
-      <h1 className="text-2xl font-bold">{id ? "Edit Food Log" : "Add Food Log"}</h1>
+      <h1 className="text-2xl font-semibold text-white">{id ? "Edit Food Log" : "Add Food Log"}</h1>
       <FoodLogForm initial={state.data ?? undefined} isSubmitting={isSubmitting} onSubmit={submit} />
     </div>
   );

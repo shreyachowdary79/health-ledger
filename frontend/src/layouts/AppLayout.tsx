@@ -22,51 +22,72 @@ export function AppLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-ink dark:bg-slate-950 dark:text-slate-100">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-slate-200 bg-white px-4 py-5 dark:border-slate-800 dark:bg-slate-900 lg:block">
-        <div className="text-xl font-bold">Health Ledger</div>
-        <p className="mt-1 text-sm text-slate-500">{user?.name}</p>
-        <nav className="mt-8 space-y-1">
+    <div className="min-h-screen text-slate-100">
+      <div className="pointer-events-none fixed inset-0 premium-grid opacity-40" />
+      <div className="pointer-events-none fixed inset-0 bg-aurora opacity-60" />
+      <aside className="fixed inset-y-4 left-4 z-30 hidden w-72 glass-panel rounded-[28px] px-4 py-5 lg:flex lg:flex-col">
+        <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+          <div className="text-xl font-semibold tracking-tight">Health Ledger</div>
+          <p className="mt-1 text-sm text-slate-400">{user?.name}</p>
+        </div>
+        <nav className="mt-6 space-y-2">
           {links.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium ${isActive ? "bg-teal-50 text-mint dark:bg-teal-950" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"}`
+                `group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300 ${isActive ? "bg-white/10 text-white shadow-glow" : "text-slate-300 hover:bg-white/5 hover:text-white"}`
               }
             >
-              <Icon size={18} />
+              <span className="grid h-10 w-10 place-items-center rounded-2xl bg-white/5 text-emerald-300 transition group-hover:bg-emerald-400/15">
+                <Icon size={18} />
+              </span>
               {label}
             </NavLink>
           ))}
         </nav>
+        <div className="mt-auto rounded-[24px] border border-white/10 bg-white/5 p-4 text-sm text-slate-300">
+          <p className="font-medium text-white">Signed in</p>
+          <p className="mt-1">{user?.email}</p>
+        </div>
       </aside>
-      <main className="lg:pl-64">
-        <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur dark:border-slate-800 dark:bg-slate-900/90">
-          <div className="font-semibold lg:hidden">Health Ledger</div>
-          <div className="hidden text-sm text-slate-500 lg:block">Food logging MVP</div>
-          <div className="flex items-center gap-2">
-            <button aria-label="Toggle dark mode" className="rounded-md p-2 hover:bg-slate-100 dark:hover:bg-slate-800" onClick={toggleTheme}>
+      <main className="relative lg:pl-[20.75rem]">
+        <header className="sticky top-0 z-20 px-4 pt-4">
+          <div className="glass-panel flex items-center justify-between rounded-[28px] px-4 py-3">
+            <div>
+              <div className="text-sm uppercase tracking-[0.3em] text-emerald-300/80">Premium Health Intelligence</div>
+              <div className="text-lg font-semibold text-white lg:hidden">Health Ledger</div>
+            </div>
+            <div className="hidden max-w-xl flex-1 px-6 lg:block">
+              <label className="relative block">
+                <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-slate-400">⌘K</span>
+                <input className="glass-input w-full rounded-full py-3 pl-16 pr-4 text-sm" placeholder="Search insights, reports, appointments..." />
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
+              <button aria-label="Toggle dark mode" className="glass-input rounded-full p-3" onClick={toggleTheme}>
               {dark ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-            <button
-              aria-label="Log out"
-              className="rounded-md p-2 hover:bg-slate-100 dark:hover:bg-slate-800"
-              onClick={() => {
-                logout();
-                navigate("/login");
-              }}
-            >
-              <LogOut size={18} />
-            </button>
+              </button>
+              <button aria-label="Notifications" className="glass-input rounded-full p-3">•</button>
+              <button
+                aria-label="Log out"
+                className="glass-input rounded-full p-3"
+                onClick={() => {
+                  logout();
+                  navigate("/login");
+                }}
+              >
+                <LogOut size={18} />
+              </button>
+            </div>
           </div>
         </header>
-        <div className="mx-auto max-w-7xl px-4 py-6">
+        <div className="relative mx-auto max-w-7xl px-4 py-6 pb-24 lg:pb-8">
           <Outlet />
         </div>
-        <nav className="fixed inset-x-0 bottom-0 grid grid-cols-5 border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden">
+        <nav className="fixed inset-x-3 bottom-3 z-30 grid grid-cols-5 gap-2 glass-panel rounded-[24px] p-2 lg:hidden">
           {links.map(({ to, label, icon: Icon }) => (
-            <NavLink key={to} to={to} className="flex flex-col items-center gap-1 px-2 py-2 text-xs">
+            <NavLink key={to} to={to} className="flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-xs text-slate-300">
               <Icon size={18} />
               {label}
             </NavLink>

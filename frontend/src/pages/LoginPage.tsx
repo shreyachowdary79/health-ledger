@@ -13,9 +13,10 @@ export function LoginPage() {
   const { register, handleSubmit } = useForm<{ email: string; password: string }>();
 
   return (
-    <main className="grid min-h-screen place-items-center bg-slate-50 px-4 dark:bg-slate-950">
+    <main className="relative grid min-h-screen place-items-center px-4">
+      <div className="pointer-events-none absolute inset-0 bg-aurora opacity-70" />
       <form
-        className="w-full max-w-md rounded-md bg-white p-6 shadow-soft dark:bg-slate-900"
+        className="glass-panel relative z-10 w-full max-w-md rounded-[32px] p-8"
         onSubmit={handleSubmit(async (values) => {
           setSubmitting(true);
           try {
@@ -29,14 +30,19 @@ export function LoginPage() {
           }
         })}
       >
-        <h1 className="text-2xl font-bold">Health Ledger</h1>
-        <p className="mt-1 text-sm text-slate-500">Log in to continue.</p>
-        <div className="mt-6 grid gap-4">
-          <input className="rounded-md border border-slate-300 bg-transparent px-3 py-2" placeholder="Email" {...register("email", { required: true })} />
-          <input className="rounded-md border border-slate-300 bg-transparent px-3 py-2" type="password" placeholder="Password" {...register("password", { required: true })} />
-          <Button disabled={isSubmitting}>{isSubmitting ? "Signing in..." : "Sign in"}</Button>
+        <div className="mb-8">
+          <p className="text-sm uppercase tracking-[0.3em] text-emerald-300/80">Health Ledger</p>
+          <h1 className="mt-3 text-3xl font-semibold text-white">Welcome back</h1>
+          <p className="mt-2 text-sm text-slate-400">Sign in to your healthcare dashboard.</p>
         </div>
-        <Link className="mt-4 block text-sm text-mint" to="/register">
+        <div className="grid gap-4">
+          <input className="glass-input rounded-2xl px-4 py-3" placeholder="Email" {...register("email", { required: true })} />
+          <input className="glass-input rounded-2xl px-4 py-3" type="password" placeholder="Password" {...register("password", { required: true })} />
+          <Button className="rounded-full bg-premium text-slate-950 shadow-glow" disabled={isSubmitting}>
+            {isSubmitting ? "Signing in..." : "Sign in"}
+          </Button>
+        </div>
+        <Link className="mt-5 block text-sm text-emerald-300 transition hover:text-cyan-300" to="/register">
           Create an account
         </Link>
       </form>

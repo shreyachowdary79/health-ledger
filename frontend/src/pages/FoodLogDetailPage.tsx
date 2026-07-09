@@ -17,13 +17,13 @@ export function FoodLogDetailPage() {
   return (
     <div className="grid gap-6">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold">{data.foodName}</h1>
+        <h1 className="text-2xl font-semibold text-white">{data.foodName}</h1>
         <div className="flex gap-2">
           <Link to={`/foodlogs/${data.id}/edit`}>
-            <Button>Edit</Button>
+            <Button className="rounded-full bg-white/10 text-white hover:bg-white/15">Edit</Button>
           </Link>
           <Button
-            className="bg-coral hover:bg-red-700"
+            className="rounded-full bg-rose-500/90 text-white hover:bg-rose-500"
             onClick={async () => {
               await foodLogService.remove(data.id);
               toast.success("Food log deleted");
@@ -34,7 +34,7 @@ export function FoodLogDetailPage() {
           </Button>
         </div>
       </div>
-      <section className="grid gap-4 rounded-md bg-white p-5 shadow-soft dark:bg-slate-900 md:grid-cols-2">
+      <section className="glass-panel grid gap-4 rounded-[28px] p-5 md:grid-cols-2">
         <p><strong>Meal:</strong> {humanize(data.mealCategory)}</p>
         <p><strong>Calories:</strong> {data.calories}</p>
         <p><strong>Portion:</strong> {data.portionQuantity} {humanize(data.portionUnit)}</p>
@@ -42,7 +42,7 @@ export function FoodLogDetailPage() {
         <p className="md:col-span-2"><strong>Notes:</strong> {data.notes || "None"}</p>
         <div className="md:col-span-2 flex flex-wrap gap-2">
           {data.tags.map((tag) => (
-            <span key={tag} className="rounded-md bg-slate-100 px-2 py-1 text-sm dark:bg-slate-800">{tag}</span>
+            <span key={tag} className="rounded-full bg-white/5 px-2 py-1 text-sm text-slate-300">{tag}</span>
           ))}
         </div>
       </section>

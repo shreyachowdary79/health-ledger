@@ -14,17 +14,17 @@ export function FoodLogListPage() {
   return (
     <div className="grid gap-6">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold">Food Logs</h1>
+        <h1 className="text-2xl font-semibold text-white">Food Logs</h1>
         <Link to="/foodlogs/new">
-          <Button>Add food</Button>
+          <Button className="rounded-full bg-premium text-slate-950 shadow-glow">Add food</Button>
         </Link>
       </div>
-      <div className="grid gap-3 rounded-md bg-white p-4 shadow-soft dark:bg-slate-900 md:grid-cols-4">
+      <div className="glass-panel grid gap-3 rounded-[28px] p-4 md:grid-cols-4">
         <label className="relative md:col-span-2">
           <Search className="absolute left-3 top-2.5 text-slate-400" size={18} />
-          <input className="w-full rounded-md border border-slate-300 bg-transparent py-2 pl-10 pr-3 dark:border-slate-700" placeholder="Search food, notes, tags" value={filters.q} onChange={(event) => setFilters({ ...filters, q: event.target.value })} />
+          <input className="glass-input w-full rounded-2xl py-3 pl-10 pr-3" placeholder="Search food, notes, tags" value={filters.q} onChange={(event) => setFilters({ ...filters, q: event.target.value })} />
         </label>
-        <select className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" value={filters.mealCategory} onChange={(event) => setFilters({ ...filters, mealCategory: event.target.value })}>
+        <select className="glass-input rounded-2xl px-3 py-2" value={filters.mealCategory} onChange={(event) => setFilters({ ...filters, mealCategory: event.target.value })}>
           <option value="">All meals</option>
           {mealCategories.map((category) => (
             <option key={category} value={category}>
@@ -32,7 +32,7 @@ export function FoodLogListPage() {
             </option>
           ))}
         </select>
-        <select className="rounded-md border border-slate-300 bg-transparent px-3 py-2 dark:border-slate-700" value={filters.sortBy} onChange={(event) => setFilters({ ...filters, sortBy: event.target.value })}>
+        <select className="glass-input rounded-2xl px-3 py-2" value={filters.sortBy} onChange={(event) => setFilters({ ...filters, sortBy: event.target.value })}>
           <option value="date">Date</option>
           <option value="calories">Calories</option>
           <option value="foodName">Food Name</option>
@@ -43,19 +43,19 @@ export function FoodLogListPage() {
       {data && data.items.length === 0 && <EmptyState title="No matching food logs" />}
       <div className="grid gap-3">
         {data?.items.map((entry) => (
-          <Link key={entry.id} to={`/foodlogs/${entry.id}`} className="grid gap-2 rounded-md bg-white p-4 shadow-soft transition hover:translate-y-[-1px] dark:bg-slate-900 md:grid-cols-[1fr_auto]">
+          <Link key={entry.id} to={`/foodlogs/${entry.id}`} className="grid gap-2 rounded-[28px] border border-white/10 bg-white/5 p-4 shadow-soft transition hover:-translate-y-0.5 hover:bg-white/10 md:grid-cols-[1fr_auto]">
             <div>
-              <h2 className="font-semibold">{entry.foodName}</h2>
-              <p className="text-sm text-slate-500">{humanize(entry.mealCategory)} - {new Date(entry.consumedDateTime).toLocaleString()}</p>
+              <h2 className="font-semibold text-white">{entry.foodName}</h2>
+              <p className="text-sm text-slate-400">{humanize(entry.mealCategory)} - {new Date(entry.consumedDateTime).toLocaleString()}</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {entry.tags.map((tag) => (
-                  <span key={tag} className="rounded-md bg-slate-100 px-2 py-1 text-xs dark:bg-slate-800">
+                  <span key={tag} className="rounded-full bg-white/5 px-2 py-1 text-xs text-slate-300">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
-            <strong className="text-lg text-mint">{entry.calories} cal</strong>
+            <strong className="text-lg text-emerald-300">{entry.calories} cal</strong>
           </Link>
         ))}
       </div>
