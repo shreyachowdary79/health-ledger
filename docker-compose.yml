@@ -31,7 +31,20 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+    command: >
+      sh -c "
+        npx prisma migrate deploy &&
+        echo '' &&
+        echo '==================================================' &&
+        echo '🚀 Health Ledger is running successfully!' &&
+        echo '' &&
+        echo '🌐 Frontend : http://localhost:5173' &&
+        echo '🔧 Backend  : http://localhost:4000' &&
+        echo '🗄️  Database : localhost:5432' &&
+        echo '==================================================' &&
+        echo '' &&
+        node dist/server.js
+      "
 
   frontend:
     build: ./frontend
